@@ -1,0 +1,46 @@
+# Copyright 2017 Free Software Foundation, Inc.
+#
+# This file is part of GNU Radio
+# GNU Radio is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3, or (at your option)
+# any later version.
+#
+# GNU Radio is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with GNU Radio; see the file COPYING.  If not, write to
+# the Free Software Foundation, Inc., 51 Franklin Street,
+# Boston, MA 02110-1301, USA.
+
+from bokeh.models.widgets import Dropdown
+
+class dropdown():
+    def __init__(self, widget_lst, label, menu, width = 0, height = 0):
+        self.label = label
+        self.menu = menu
+        self.width = width
+        self.height = height
+        self.dropdown = None
+        self.dropdown = None
+        # self.initialize(default_value, label, inline)
+        widget_lst.append(self)
+
+    def initialize(self, widget_lst):
+        if self.width > 0 and self.height > 0:
+            self.dropdown = Dropdown(label = self.label, button_type="default",
+                                      menu = self.menu, width = self.width, height = self.height)
+        else:
+            self.dropdown = Dropdown(label = self.label, button_type="default",
+                                      menu = self.menu)
+        widget_lst.append(self.dropdown)
+        if self.callback is not None:
+            self.dropdown.on_click(self.callback)
+
+    def add_callback(self, callback):
+        self.callback = callback
+        if self.dropdown is not None:
+            self.dropdown.on_click(self.callback)
